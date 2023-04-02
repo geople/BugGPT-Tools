@@ -159,7 +159,7 @@ export deep=$deep
 export clean_tmp=$clean_tmp
 originalDir=$(pwd)
 #Recheck Values
-echo -e "${YELLOW}url: $url${RESET}"
+echo -e "${YELLOW}url${RESET}: ${BLUE}$url${RESET}"
 echo -e "${YELLOW}outputDir: $outputDir${RESET}"
 echo -e "${YELLOW}githubToken: $githubToken${RESET}"
 echo -e "${YELLOW}optionalHeaders: $optionalHeaders${RESET}"

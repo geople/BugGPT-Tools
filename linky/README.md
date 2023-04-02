@@ -53,8 +53,8 @@ Extensive:
 linky --url https://example.com --output_dir /path/to/outputdir --github_token ghp_xyz --headers "Authorization: Bearer token; Cookie: cookie_value" --deep --discover-params --scan-secrets
 
 Tips: 
-➼ Include UrlScan API keys in /home/ajam/Tools/waymore/config.yml to find more links
-➼ Include multiple github_tokens in /home/ajam/.config/.github_tokens to avoid rate limits
+➼ Include UrlScan API keys in $HOME/Tools/waymore/config.yml to find more links
+➼ Include multiple github_tokens in $HOME/.config/.github_tokens to avoid rate limits
 ➼ --scan-secrets produces massive files (Several GBs). So TuffleHog is run by default. Best run with --deep
 ➼ Don't Worry if your Terminal Hangs for a bit.. It's a feature not a bug
 ```

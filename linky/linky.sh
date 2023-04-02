@@ -164,19 +164,19 @@ echo -e "${YELLOW}outputDir: ${BLUE}$outputDir${NC}"
 echo -e "${YELLOW}githubToken: ${BLUE}$githubToken${NC}"
 echo -e "${YELLOW}optionalHeaders: ${BLUE}$optionalHeaders${NC}"
 if [ -n "$deep" ] && [ "$deep" -eq 1 ]; then
-  echo -e "${YELLOW}Run with --depth 5 for all crawlers? : Yes $(echo -e "${GREEN}\u2713${NC}")${NC}"
+  echo -e "${YELLOW}Run with --depth 5 for all crawlers? : ${BLUE}Yes $(echo -e "${GREEN}\u2713${NC}")${NC}"
 else
-  echo -e "${YELLOW}Run with --depth 5 for all crawlers? : No $(echo -e "${RED}\u2717${NC}")${NC}"
+  echo -e "${YELLOW}Run with --depth 5 for all crawlers? : ${RED}No $(echo -e "${RED}\u2717${NC}")${NC}"
 fi
 if [ -n "$clean_tmp" ] && [ "$clean_tmp" -eq 1 ]; then
-  echo -e "${YELLOW}Clean Temporary Files ($outputDir/tmp)? : Yes $(echo -e "${GREEN}\u2713${NC}")${NC}"
+  echo -e "${YELLOW}Clean Temporary Files ($outputDir/tmp)? : ${BLUE}Yes $(echo -e "${GREEN}\u2713${NC}")${NC}"
 else
-  echo -e "${YELLOW}Clean Temporary Files ($outputDir/tmp)? : No $(echo -e "${RED}\u2717${NC}")${NC}"
+  echo -e "${YELLOW}Clean Temporary Files ($outputDir/tmp)? : ${RED}No $(echo -e "${RED}\u2717${NC}")${NC}"
 fi
 if [ -n "$clean_urls" ] && [ "$clean_urls" -eq 1 ]; then
-  echo -e "${YELLOW}Clean URLs (Urless | GoDeclutter)? : Yes $(echo -e "${GREEN}\u2713${NC}")${NC}"
+  echo -e "${YELLOW}Clean URLs (Urless | GoDeclutter)? : ${BLUE}Yes $(echo -e "${GREEN}\u2713${NC}")${NC}"
 else
-  echo -e "${YELLOW}Clean URLs (Urless | GoDeclutter)? : No $(echo -e "${RED}\u2717${NC}")${NC}"
+  echo -e "${YELLOW}Clean URLs (Urless | GoDeclutter)? : ${RED}No $(echo -e "${RED}\u2717${NC}")${NC}"
 fi
 
 # Check if parallel and chromium-chromedriver are installed, and install them if not
@@ -266,23 +266,24 @@ alt_scope_domain=$(fasttld extract $url | grep -E 'domain:|suffix:' | awk '{prin
 domain=$(echo "$url" | unfurl domains)
 #Set .scope 
 echo ""
-echo "Scope is set as: "
-echo $scope_domain | scopegen -in | anew $outputDir/.scope
-echo $alt_scope_domain | scopegen -in | anew $outputDir/.scope
+echo -e "${BLUE}Scope is set as:${NC} "
+echo $scope_domain | scopegen -in | anew -q $outputDir/.scope
+echo $alt_scope_domain | scopegen -in | anew -q $outputDir/.scope
+echo -e "${YELLOW}$(cat $outputDir/.scope)${NC}"
 echo ""
 #Start Tools
 #Gau
-echo "➼ Running gau on: $url" && sleep 3s
+echo -e "➼ ${YELLOW}Running ${BLUE}gau${NC} on: $url" && sleep 3s
 echo $url | gau --threads 20 | anew $outputDir/tmp/gau-urls.txt
 cat $outputDir/tmp/gau-urls.txt | anew -q $outputDir/tmp/urls.txt && clear
 
 #Github-Endpoints
-echo "➼ Running github-endpoints on: $url" && sleep 3s
+echo -e "➼ ${YELLOW}Running ${BLUE}github-endpoints${NC} on: $url" && sleep 3s
 python3 $HOME/Tools/github-search/github-endpoints.py -t $githubToken -d $domain --extend | anew $outputDir/tmp/git-urls.txt
 cat $outputDir/tmp/git-urls.txt | anew $outputDir/tmp/urls.txt
 
 #GoSpider
-echo "➼ Running GoSpider on: $url "
+echo -e "➼ ${YELLOW}Running ${BLUE}GoSpider${NC} on: $url "
 if [ -n "$optionalHeaders" ]; then 
   if [ -n "$deep" ]; then
     gospider -s $url --other-source --include-subs --include-other-source --concurrent 50 --depth 5 -H "$optionalHeaders" --quiet | grep -aEo 'https?://[^ ]+' | sed 's/]$//' | anew $outputDir/tmp/gospider-urls.txt
@@ -299,7 +300,7 @@ fi
 cat $outputDir/tmp/gospider-urls.txt | anew -q $outputDir/tmp/urls.txt && clear 
 
 #Hakrawler
-echo "➼ Running hakrawler on: $url" && sleep 3s
+echo -e "➼ ${YELLOW}Running ${BLUE}hakrawler${NC} on: $url" && sleep 3s
 if [ -n "$optionalHeaders" ]; then 
    if [ -n "$deep" ]; then
    echo $url | hakrawler -d 5 -insecure -t 50 -h "$optionalHeaders" | anew $outputDir/tmp/hak-urls.txt
@@ -316,7 +317,7 @@ fi
 cat $outputDir/tmp/hak-urls.txt | anew -q $outputDir/tmp/urls.txt && clear
 
 #Katana
-echo "➼ Running Katana on: $url" && sleep 3s
+echo -e "➼ ${YELLOW}Running ${BLUE}Katana${NC} on: $url" && sleep 3s
 if [ -n "$optionalHeaders" ]; then 
    if [ -n "$deep" ]; then
     echo $url | katana -d 5 -H "$optionalHeaders" -o $outputDir/tmp/katana-urls.txt 
@@ -333,11 +334,11 @@ fi
 cat $outputDir/tmp/katana-urls.txt | anew -q $outputDir/tmp/urls.txt && clear 
 
 #Robots.txt
-echo "➼ Finding all robots.txt Endpoints on: $url" 
+echo -e "➼ ${YELLOW}Finding all ${BLUE}robots.txt${NC} Endpoints on: $url" 
 roboxtractor -u $url -s -m 1 -wb -v | sort -u | awk '{print "/" $1}' | anew $outputDir/robots.txt
 
 #XnLinkFinder
-echo "➼ Running xnLinkFinder on: $url" && sleep 3s
+echo -e "➼ ${YELLOW}Running ${BLUE}xnLinkFinder${NC} on: $url" && sleep 3s
 if [ -n "$optionalHeaders" ]; then 
    if [ -n "$deep" ]; then
     python3 $HOME/Tools/xnLinkFinder/xnLinkFinder.py -i $url -H "$optionalHeaders" -sp $url -d 5 -sf .*$scope_domain -v -insecure -o $outputDir/tmp/xnl-urls.txt -op $outputDir/tmp/xnl-parameters.txt
@@ -387,7 +388,7 @@ echo "➼ Downloading all JS files [fGET] $(mkdir -p $outputDir/jsfiles)"
 cat $outputDir/js.txt | fget -o $outputDir/jsfiles --random-agent --verbose --workers 50
 mv $outputDir/jsfiles/results/**/**/** $outputDir/jsfiles
 #Beautify
-echo "➼ Beautifying all JS files [js-beautifier]"
+echo -e "➼ ${YELLOW}Beautifying all ${BLUE}JS files [js-beautifier]${NC}"
 js-beautify -r $outputDir/jsfiles/**/**/**/**/**/**.js
 #XnLinkfinder for JS
 echo "➼ Finding additional links & Paramas from JSfiles"
@@ -421,7 +422,7 @@ labels=("Endpoints" "JavaScript URLs" "JavaScript Links & Endpoints" "JavaScript
 for i in "${!files[@]}"; do
     if [ -f "${files[i]}" ]; then
         count=$(wc -l < "${files[i]}")
-        echo "➼ Total ${labels[i]} (${files[i]}) --> ${count// /}"
+        echo -e "➼ Total ${YELLOW}${labels[i]}${NC} (${files[i]}) -->${BLUE} ${count// /}${NC}"
     else
         echo "➼ File ${files[i]} not found"
     fi
@@ -437,7 +438,7 @@ REMOTE_FILE=$(mktemp)
 curl -s -H "Cache-Control: no-cache" https://raw.githubusercontent.com/Azathothas/BugGPT-Tools/main/linky/linky.sh -o "$REMOTE_FILE"
 if ! diff --brief /usr/local/bin/linky "$REMOTE_FILE" >/dev/null 2>&1; then
 echo ""
-echo "➼ Update Found! updating .. $(linky -up)" 
+echo -e "➼ ${YELLOW}Update Found!${NC} ${BLUE}updating ..${NC} $(linky -up)" 
   else
   rm -f "$REMOTE_FILE" 2>/dev/null
     exit 0

@@ -2,15 +2,15 @@
 Generates **`.scope`** compatible format for TomNomNom's [Inscope](https://github.com/tomnomnom/hacks/tree/master/inscope)
 
 ### **Installation**
- - **Bash**: 
+ - **Bash**: (Stable)
  ```bash
  sudo wget https://raw.githubusercontent.com/Azathothas/BugGPT-Tools/main/scopegen/scopegen.sh -O /usr/local/bin/scopegen.sh && sudo chmod +xwr /usr/local/bin/scopegen.sh
  ```
- - **Go**: 
+ - **Go**: (Stable & Preffered)
  ```bash
  go install -v github.com/Azathothas/BugGPT-Tools/scopegen@main
  ```
- - **Rust**: 
+ - **Rust**: (Experimental)
  ```bash
  wget https://raw.githubusercontent.com/Azathothas/BugGPT-Tools/main/scopegen/scopegen.rs && rustc scopegen.rs && sudo mv scopegen $HOME/.cargo/bin
  ```

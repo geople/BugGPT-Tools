@@ -318,17 +318,17 @@ echo "It's a feature not a bug!"
 echo ""
 #Start Tools
 #Gau
-echo -e "➼ ${YELLOW}Running ${BLUE}gau${NC} on: $url" && sleep 3s
+echo -e "➼ ${YELLOW}Running ${BLUE}gau${NC} on: ${GREEN}$url${NC}" && sleep 3s
 echo $url | gau --threads 20 | anew $outputDir/tmp/gau-urls.txt
 cat $outputDir/tmp/gau-urls.txt | anew -q $outputDir/tmp/urls.txt && clear
 
 #Github-Endpoints
-echo -e "➼ ${YELLOW}Running ${BLUE}github-endpoints${NC} on: $url" && sleep 3s
+echo -e "➼ ${YELLOW}Running ${BLUE}github-endpoints${NC} on: ${GREEN}$url${NC}" && sleep 3s
 python3 $HOME/Tools/github-search/github-endpoints.py -t $githubToken -d $domain --extend | anew $outputDir/tmp/git-urls.txt
 cat $outputDir/tmp/git-urls.txt | anew $outputDir/tmp/urls.txt
 
 #GoSpider
-echo -e "➼ ${YELLOW}Running ${BLUE}GoSpider${NC} on: $url "
+echo -e "➼ ${YELLOW}Running ${BLUE}GoSpider${NC} on: ${GREEN}$url${NC} "
 if [ -n "$optionalHeaders" ]; then 
   if [ -n "$deep" ]; then
     gospider -s $url --other-source --include-subs --include-other-source --concurrent 50 --depth 5 -H "$optionalHeaders" --quiet | grep -aEo 'https?://[^ ]+' | sed 's/]$//' | anew $outputDir/tmp/gospider-urls.txt
@@ -345,7 +345,7 @@ fi
 cat $outputDir/tmp/gospider-urls.txt | anew -q $outputDir/tmp/urls.txt && clear 
 
 #Hakrawler
-echo -e "➼ ${YELLOW}Running ${BLUE}hakrawler${NC} on: $url" && sleep 3s
+echo -e "➼ ${YELLOW}Running ${BLUE}hakrawler${NC} on: ${GREEN}$url${NC}" && sleep 3s
 if [ -n "$optionalHeaders" ]; then 
    if [ -n "$deep" ]; then
    echo $url | hakrawler -d 5 -insecure -t 50 -h "$optionalHeaders" | anew $outputDir/tmp/hak-urls.txt
@@ -362,7 +362,7 @@ fi
 cat $outputDir/tmp/hak-urls.txt | anew -q $outputDir/tmp/urls.txt && clear
 
 #Katana
-echo -e "➼ ${YELLOW}Running ${BLUE}Katana${NC} on: $url" && sleep 3s
+echo -e "➼ ${YELLOW}Running ${BLUE}Katana${NC} on: ${GREEN}$url${NC}" && sleep 3s
 if [ -n "$optionalHeaders" ]; then 
    if [ -n "$deep" ]; then
     echo $url | katana -d 5 -H "$optionalHeaders" -o $outputDir/tmp/katana-urls.txt 
@@ -379,11 +379,11 @@ fi
 cat $outputDir/tmp/katana-urls.txt | anew -q $outputDir/tmp/urls.txt && clear 
 
 #Robots.txt
-echo -e "➼ ${YELLOW}Finding all ${BLUE}robots.txt${NC} Endpoints on: $url" 
+echo -e "➼ ${YELLOW}Finding all ${BLUE}robots.txt${NC} Endpoints on: ${GREEN}$url${NC}" 
 roboxtractor -u $url -s -m 1 -wb -v | sort -u | awk '{print "/" $1}' | anew $outputDir/robots.txt
 
 #XnLinkFinder
-echo -e "➼ ${YELLOW}Running ${BLUE}xnLinkFinder${NC} on: $url" && sleep 3s
+echo -e "➼ ${YELLOW}Running ${BLUE}xnLinkFinder${NC} on: ${GREEN}$url${NC}" && sleep 3s
 if [ -n "$optionalHeaders" ]; then 
    if [ -n "$deep" ]; then
     python3 $HOME/Tools/xnLinkFinder/xnLinkFinder.py -i $url -H "$optionalHeaders" -sp $url -d 5 -sf .*$scope_domain -v -insecure -o $outputDir/tmp/xnl-urls.txt -op $outputDir/tmp/xnl-parameters.txt
@@ -402,7 +402,7 @@ cat $outputDir/tmp/xnl-parameters.txt | anew $outputDir/parameters.txt
 clear 
 
 #Waymore
-echo "➼ Running Waymore on: $url"
+echo -e "➼ Running Waymore on: ${GREEN}$url${NC}"
 mkdir -p $outputDir/waymore/waymore-responses
 cd $HOME/Tools/waymore && python3 $HOME/Tools/waymore/waymore.py --input $domain -xcc --output-urls $outputDir/waymore/waymore-urls.txt --output-responses $outputDir/waymore/waymore-responses --verbose --processes 5
 cat $outputDir/waymore/waymore-urls.txt | anew $outputDir/tmp/urls.txt
@@ -415,7 +415,7 @@ cat $outputDir/waymore/waymore-linkfinder.txt | cut -d'[' -f1 |  scopeview -s $o
 #Dedupe & Filter Scope
 sort -u $outputDir/tmp/urls.txt -o $outputDir/tmp/urls.txt
 if [ -n "$clean_urls" ]; then 
-  echo "➼ Removing Junk URLs (urless): $url"
+  echo -e "➼ Removing Junk URLs (urless): ${GREEN}$url${NC}"
   cd $HOME/Tools/urless && python3 $HOME/Tools/urless/urless.py --input $outputDir/tmp/urls.txt -o $outputDir/tmp/urless.txt
   echo "➼ Decluttering URLs (godeclutter): $url" 
   cat $outputDir/tmp/urls.txt | godeclutter | anew $outputDir/tmp/decluttered-urls.txt
@@ -501,7 +501,7 @@ find $outputDir -type f -size 0 -delete && find $outputDir -type d -empty -delet
 find $outputDir -type f -name "*.txt" -not -name ".*" -exec sort -u {} -o {} \;  
 echo ""
 cd $originalDir && clear
-echo "➼ All Links Scraped and Saved in: $outputDir"
+echo -e "➼ All ${GREEN}Links${NC} Scraped and Saved in: ${BLUE}$outputDir${BLUE}"
 echo ""
 cd $outputDir
 files=("$outputDir/endpoints.txt" "$outputDir/js.txt" "$outputDir/jsfile-links.txt" "$outputDir/jsfiles-params.txt" "$outputDir/parameters.txt" "$outputDir/robots.txt" "$outputDir/urls.txt" )

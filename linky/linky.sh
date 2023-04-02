@@ -49,7 +49,7 @@ if [[ "$*" == *"-help"* ]] || [[ "$*" == *"--help"* ]] || [[ "$*" == *"help"* ]]
   echo -e "${BLUE}Basic${NC}: "
   echo 'linky --url https://example.com --output_dir /path/to/outputdir --github_token ghp_xyz'
   echo ""
-  echo -e "${RED}Exstensive${NC}: "
+  echo -e "${RED}Extensive${NC}: "
   echo 'linky --url https://example.com --output_dir /path/to/outputdir --github_token ghp_xyz --headers "Authorization: Bearer token; Cookie: cookie_value" --deep --discover-params --scan-secrets'
   echo ""
   echo -e "${GREEN}Tips${NC}: "
@@ -467,6 +467,7 @@ if [ -n "$scan_secrets" ]; then
 #Trufflehog
  trufflehog filesystem --directory=$outputDir/ --concurrency 70 | tee -a $outputDir/Secrets/trufflehog.txt && clear
 else
+ echo "Extensive Secret Scannig Skipped$(sleep 5s)"
  mkdir -p $outputDir/Secrets/fff-urls
  cat $outputDir/urls.txt | fff --header 'Authorization: Bearer null' --save-status 200 --save-status 405 --save-status 401 --save-status 403 -o $outputDir/Secrets/fff-urls
  trufflehog filesystem --directory=$outputDir/ --concurrency 70 | tee -a $outputDir/Secrets/trufflehog.txt && clear
@@ -492,7 +493,7 @@ if [ -n "$discover_params" ]; then
    arjun -i $outputDir/tmp/param-urls.txt -w $outputDir/tmp/tmp-arjun-param.txt -c 250 -t 300 -oT $outputDir/parameters-arjun.txt
    rm $outputDir/tmp/tmp-arjun-param.txt 
 else
-  echo ""
+  echo "Parameter Discovery Skipped$(sleep 5s)"
 fi
 
 #QOL Changes

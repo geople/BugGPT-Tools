@@ -312,7 +312,9 @@ echo $scope_domain | scopegen -in | anew -q $outputDir/.scope
 echo $alt_scope_domain | scopegen -in | anew -q $outputDir/.scope
 echo -e "${YELLOW}$(cat $outputDir/.scope)${NC}"
 echo ""
-
+echo -e "${YELLOW}Don't Worry${NC} if your ${RED}Terminal Hangs${NC} for a bit.."
+echo "It's a feature not a bug!"
+echo ""
 #Start Tools
 #Gau
 echo -e "➼ ${YELLOW}Running ${BLUE}gau${NC} on: $url" && sleep 3s

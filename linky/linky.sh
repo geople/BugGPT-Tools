@@ -1,6 +1,14 @@
 #!/usr/bin/bash
 
 #A bit of Styling
+RED='\033[31m'
+GREEN='\033[32m'
+BLUE='\033[34m'
+YELLOW='\033[33m'
+RESET='\033[0m'
+NC='\033[0m'
+#Banner
+echo -e "${BLUE}"
 cat << "EOF"
 ──╔╗──╔╗
 ╔╗╠╬═╦╣╠╦╦╗
@@ -8,6 +16,7 @@ cat << "EOF"
 ╚═╩╩╩═╩╩╬╗║
 ────────╚═╝
 EOF
+echo -e "${NC}"
 #Initialization, Only on a fresh install
 if [[ "$*" == *"-init"* ]] || [[ "$*" == *"--init"* ]] || [[ "$*" == *"init"* ]] ; then
   echo "➼ Initializing linky..."
@@ -150,24 +159,24 @@ export deep=$deep
 export clean_tmp=$clean_tmp
 originalDir=$(pwd)
 #Recheck Values
-echo "url: $url"
-echo "outputDir: $outputDir"
-echo "githubToken: $githubToken"
-echo "optionalHeaders: $optionalHeaders"
+echo -e "${YELLOW}url: $url${RESET}"
+echo -e "${YELLOW}outputDir: $outputDir${RESET}"
+echo -e "${YELLOW}githubToken: $githubToken${RESET}"
+echo -e "${YELLOW}optionalHeaders: $optionalHeaders${RESET}"
 if [ -n "$deep" ] && [ "$deep" -eq 1 ]; then
-  echo "deep: true"
+  echo -e "${YELLOW}Run with --depth 5 for all crawlers? : Yes $(echo -e "${GREEN}\u2713${RESET}")${RESET}"
 else
-  echo "deep: false"
+  echo -e "${YELLOW}Run with --depth 5 for all crawlers? : No $(echo -e "${RED}\u2717${RESET}")${RESET}"
 fi
 if [ -n "$clean_tmp" ] && [ "$clean_tmp" -eq 1 ]; then
-  echo "Clean_tmp: true"
+  echo -e "${YELLOW}Clean Temporary Files ($outputDir/tmp)? : Yes $(echo -e "${GREEN}\u2713${RESET}")${RESET}"
 else
-  echo "Clean_tmp: false"
+  echo -e "${YELLOW}Clean Temporary Files ($outputDir/tmp)? : No $(echo -e "${RED}\u2717${RESET}")${RESET}"
 fi
 if [ -n "$clean_urls" ] && [ "$clean_urls" -eq 1 ]; then
-  echo "Clean_URLs: true"
+  echo -e "${YELLOW}Clean URLs (Urless | GoDeclutter)? : Yes $(echo -e "${GREEN}\u2713${RESET}")${RESET}"
 else
-  echo "Clean_URLs: false"
+  echo -e "${YELLOW}Clean URLs (Urless | GoDeclutter)? : No $(echo -e "${RED}\u2717${RESET}")${RESET}"
 fi
 
 

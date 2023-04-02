@@ -154,21 +154,22 @@ echo "url: $url"
 echo "outputDir: $outputDir"
 echo "githubToken: $githubToken"
 echo "optionalHeaders: $optionalHeaders"
-if [ "$deep" -eq 1 ]; then
+if [ -n "$deep" ] && [ "$deep" -eq 1 ]; then
   echo "deep: true"
 else
   echo "deep: false"
 fi
-if [ "$clean_tmp" -eq 1 ]; then
+if [ -n "$clean_tmp" ] && [ "$clean_tmp" -eq 1 ]; then
   echo "Clean_tmp: true"
 else
   echo "Clean_tmp: false"
 fi
-if [ "$clean_urls" -eq 1 ]; then
+if [ -n "$clean_urls" ] && [ "$clean_urls" -eq 1 ]; then
   echo "Clean_URLs: true"
 else
   echo "Clean_URLs: false"
 fi
+
 
 #echo "deep: $deep"
 #echo "Clean_tmp: $clean_tmp"

@@ -35,7 +35,7 @@ linky -init
 Extended Help
 -u,       --url              Specify the URL to scrape (Required)
 -o,       --output_dir       Specify the directory to save the output files (Required)
--gh,      --github_token     Specify manually: ghp_xxx (Not Required if /home/ajam/.config/.github_tokens exists)
+-gh,      --github_token     Specify manually: ghp_xxx (Not Required if $HOME/.config/.github_tokens exists)
 -d,       --deep             Specify if Gospider, Hakrawler, Katana & XnLinkfinder should run with depth 5.(Slow)
 -h,       --headers          Specify additional headers or cookies to use in the HTTP request (optional)
 -init,    --init             Initialize ➼ linky by dry-running it against example.com (Only run on a fresh Install)

@@ -30,7 +30,7 @@ if [[ "$*" == *"-init"* ]] || [[ "$*" == *"--init"* ]] || [[ "$*" == *"init"* ]]
 fi
 #Help / Usage
 if [[ "$*" == *"-help"* ]] || [[ "$*" == *"--help"* ]] || [[ "$*" == *"help"* ]] ; then
-  echo "➼ Usage: linky -u <url> -o /path/to/outputdir -gh <github_token> -h <optional Headers>"
+  echo -e "${YELLOW}➼ Usage${NC}: ${GREEN}linky${NC} ${BLUE}-u${NC} <url> ${BLUE}-o${NC} /path/to/outputdir ${BLUE}-gh${NC} <github_token> ${BLUE}<other options>${NC}"
   echo ""
   echo -e "${YELLOW}Extended Help${NC}"
   echo "-u,       --url              Specify the URL to scrape (Required)"
@@ -53,7 +53,7 @@ if [[ "$*" == *"-help"* ]] || [[ "$*" == *"--help"* ]] || [[ "$*" == *"help"* ]]
   echo 'linky --url https://example.com --output_dir /path/to/outputdir --github_token ghp_xyz --headers "Authorization: Bearer token; Cookie: cookie_value" --deep --discover-params --scan-secrets'
   echo ""
   echo -e "${GREEN}Tips${NC}: "
-  echo -e "➼ Include ${BLUE}UrlScan API keys${NC} in ${BLUE}$HOME/Tools/waymore/config.yml to find more links${NC}"
+  echo -e "➼ Include ${BLUE}UrlScan API keys${NC} in ${BLUE}$HOME/Tools/waymore/config.yml${NC} to find more links"
   echo -e "➼ Include multiple ${GREEN}github_tokens${NC} in ${BLUE}$HOME/.config/.github_tokens${NC} to avoid ${RED}rate limits${NC}"
   echo -e "➼ ${RED}--scan-secrets${NC} produces ${YELLOW}massive files (Several GBs)${NC}. So TuffleHog is run by default. Best run with --deep" 
   exit 0

@@ -249,7 +249,7 @@ for binary in "${binaries[@]}"; do
         pipx install -f "git+https://github.com/s0md3v/Arjun.git" --include-deps
         go install -v github.com/lc/gau/v2/cmd/gau@latest
         sudo wget https://raw.githubusercontent.com/Azathothas/BugGPT-Tools/main/linky/assets/fasttld -O /usr/local/bin/fasttld && sudo chmod +xwr /usr/local/bin/fasttld
-        go get -u -v github.com/tomnomnom/fff
+        go env -w GO111MODULE="auto" ; go get -u -v github.com/tomnomnom/fff
         go env -w GO111MODULE="auto" ; go get -u -v github.com/bp0lr/fget
         go install -v github.com/c3l3si4n/godeclutter@main
         go install -v github.com/jaeles-project/gospider@latest

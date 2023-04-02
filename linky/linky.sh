@@ -19,13 +19,13 @@ EOF
 echo -e "${NC}"
 #Initialization, Only on a fresh install
 if [[ "$*" == *"-init"* ]] || [[ "$*" == *"--init"* ]] || [[ "$*" == *"init"* ]] ; then
-  echo "➼ Initializing linky..."
-  echo "➼ Please exit (ctrl + c) if you already did this" 
+  echo -e "➼ ${GREEN}Initializing linky...${NC}"
+  echo -e "➼ Please ${YELLOW}exit (ctrl + c)${NC} if you already did this" 
   echo "➼ Setting up...$(rm -rf /tmp/example.com 2>/dev/null)"
   linky -u https://example5.com -o /tmp/example.com -gh ghp_xyz 
   rm -rf /tmp/example.com 2>/dev/null
   echo ""
-  echo "Initialized Successfully"
+  echo -e "${GREEN}Initialized Successfully${NC}"
   exit 0
 fi
 #Help / Usage
@@ -53,17 +53,17 @@ if [[ "$*" == *"-help"* ]] || [[ "$*" == *"--help"* ]] || [[ "$*" == *"help"* ]]
 fi
 # Update. Github caches take several minutes to reflect globally  
 if [[ $# -gt 0 && ( "$*" == *"up"* || "$*" == *"-up"* || "$*" == *"update"* || "$*" == *"--update"* ) ]]; then
-  echo "➼ Checking For Updates"
+  echo -e "➼ ${YELLOW}Checking For ${BLUE}Updates${NC}"
   REMOTE_FILE=$(mktemp)
   curl -s -H "Cache-Control: no-cache" https://raw.githubusercontent.com/Azathothas/BugGPT-Tools/main/linky/linky.sh -o "$REMOTE_FILE"
   if ! diff --brief /usr/local/bin/linky "$REMOTE_FILE" >/dev/null 2>&1; then
-    echo "➼ Update Found! Updating .." 
+    echo -e "➼ ${YELLOW}NEW!! Update Found! ${BLUE}Updating ..${NC}" 
     dos2unix $REMOTE_FILE 
-    sudo mv "$REMOTE_FILE" /usr/local/bin/linky && echo "➼ Updated to @latest" 
+    sudo mv "$REMOTE_FILE" /usr/local/bin/linky && echo -e "➼ ${GREEN}Updated to ${BLUE}@latest${NC}" 
     sudo chmod +xwr /usr/local/bin/linky
     rm -f "$REMOTE_FILE" 2>/dev/null
   else
-    echo "➼ Already UptoDate"
+    echo -e "➼ ${YELLOW}Already UptoDate${NC}"
     rm -f "$REMOTE_FILE" 2>/dev/null
     exit 0
   fi
@@ -76,7 +76,7 @@ do
   case $key in
     -u|--url)
     if [ -z "$2" ]; then
-      echo "Error: URL is missing for option '-u | --url'"
+      echo -e "${RED}Error: ${YELLOW}URL is missing${NC} for option ${BLUE}'-u | --url'${NC}"
       exit 1
     fi
     url="$2"
@@ -85,7 +85,7 @@ do
     ;;
     -o|--output_dir)
     if [ -z "$2" ]; then
-      echo "Error: Output Directory is missing for option '-o | --output_dir'"
+      echo -e "${RED}Error: ${YELLOW}Output Directory${NC} is missing for option ${BLUE}'-o | --output_dir'${NC}"
       exit 1
     fi
     outputDir="$2"
@@ -99,16 +99,16 @@ do
     fi
     # Check if directory already exists
     if [ -d "$outputDir" ]; then
-      echo "Directory $outputDir already exists. Supply another for '-o | --output_dir'"
+      echo -e "${RED}Directory ${YELLOW}$outputDir${NC} already exists. Supply another for ${BLUE}'-o | --output_dir'${NC}"
       exit 1
     fi
     # Create directory
     mkdir -p "$outputDir/tmp/"
-    echo "${YELLOW}INFO${NC}: ➼ $outputDir created successfully"
+    echo -e "${YELLOW}INFO: ➼ ${BLUE}$outputDir${NC} created successfully"
     ;;
     -gh|--github_token)
     if [ -z "$2" ]; then
-      echo "Error: Github Tokens not specified for option '-gh | --github_token'"
+      echo -e "${RED}Error: ${YELLOW}Github Tokens${NC} not specified for option ${BLUE}'-gh | --github_token'${NC}"
       exit 1
     fi
     githubToken="$2"
@@ -117,8 +117,8 @@ do
     ;;
     -h|--headers)
     if [ -z "$2" ]; then
-      echo "Error: Header / Cookie Values missing for option '-h | --headers'"
-      echo "To display help, use 'help | -help | --help'"
+      echo -e "${RED}Error: Header / Cookie Values${NC} missing for option ${BLUE}'-h | --headers'${NC}"
+      echo -e "To display help, use ${BLUE}'help | -help | --help'${NC}"
 
       exit 1
     fi
@@ -139,7 +139,7 @@ do
      shift
     ;;      
     *) 
-    echo "Error: Invalid option '$key' , try --help for Usage$(rm -rf $outputDir 2>/dev/null)"
+    echo -e "${RED}Error: Invalid option '$key' , try --help for Usage$(rm -rf $outputDir 2>/dev/null)"
     exit 1
     ;;
   esac
@@ -160,29 +160,24 @@ export clean_tmp=$clean_tmp
 originalDir=$(pwd)
 #Recheck Values
 echo -e "${YELLOW}url: ${BLUE}$url${NC}"
-echo -e "${YELLOW}outputDir: $outputDir${NC}"
-echo -e "${YELLOW}githubToken: $githubToken${NC}"
-echo -e "${YELLOW}optionalHeaders: $optionalHeaders${NC}"
+echo -e "${YELLOW}outputDir: ${BLUE}$outputDir${NC}"
+echo -e "${YELLOW}githubToken: ${BLUE}$githubToken${NC}"
+echo -e "${YELLOW}optionalHeaders: ${BLUE}$optionalHeaders${NC}"
 if [ -n "$deep" ] && [ "$deep" -eq 1 ]; then
-  echo -e "${YELLOW}Run with --depth 5 for all crawlers? : Yes $(echo -e "${GREEN}\u2713${RESET}")${RESET}"
+  echo -e "${YELLOW}Run with --depth 5 for all crawlers? : Yes $(echo -e "${GREEN}\u2713${NC}")${NC}"
 else
-  echo -e "${YELLOW}Run with --depth 5 for all crawlers? : No $(echo -e "${RED}\u2717${RESET}")${RESET}"
+  echo -e "${YELLOW}Run with --depth 5 for all crawlers? : No $(echo -e "${RED}\u2717${NC}")${NC}"
 fi
 if [ -n "$clean_tmp" ] && [ "$clean_tmp" -eq 1 ]; then
-  echo -e "${YELLOW}Clean Temporary Files ($outputDir/tmp)? : Yes $(echo -e "${GREEN}\u2713${RESET}")${RESET}"
+  echo -e "${YELLOW}Clean Temporary Files ($outputDir/tmp)? : Yes $(echo -e "${GREEN}\u2713${NC}")${NC}"
 else
-  echo -e "${YELLOW}Clean Temporary Files ($outputDir/tmp)? : No $(echo -e "${RED}\u2717${RESET}")${RESET}"
+  echo -e "${YELLOW}Clean Temporary Files ($outputDir/tmp)? : No $(echo -e "${RED}\u2717${NC}")${NC}"
 fi
 if [ -n "$clean_urls" ] && [ "$clean_urls" -eq 1 ]; then
-  echo -e "${YELLOW}Clean URLs (Urless | GoDeclutter)? : Yes $(echo -e "${GREEN}\u2713${RESET}")${RESET}"
+  echo -e "${YELLOW}Clean URLs (Urless | GoDeclutter)? : Yes $(echo -e "${GREEN}\u2713${NC}")${NC}"
 else
-  echo -e "${YELLOW}Clean URLs (Urless | GoDeclutter)? : No $(echo -e "${RED}\u2717${RESET}")${RESET}"
+  echo -e "${YELLOW}Clean URLs (Urless | GoDeclutter)? : No $(echo -e "${RED}\u2717${NC}")${NC}"
 fi
-
-
-#echo "deep: $deep"
-#echo "Clean_tmp: $clean_tmp"
-#echo "Clean_URLs: $clean_urls"
 
 # Check if parallel and chromium-chromedriver are installed, and install them if not
 if ! command -v chromium >/dev/null 2>&1; then
@@ -386,6 +381,8 @@ fi
 
 #JavaScript enum
 cat $outputDir/urls.txt | grep -aEi "\.js([?#].*)?$" | anew $outputDir/js.txt
+#Using JSA: 
+
 echo "➼ Downloading all JS files [fGET] $(mkdir -p $outputDir/jsfiles)"
 cat $outputDir/js.txt | fget -o $outputDir/jsfiles --random-agent --verbose --workers 50
 mv $outputDir/jsfiles/results/**/**/** $outputDir/jsfiles

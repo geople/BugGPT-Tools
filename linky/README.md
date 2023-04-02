@@ -1,3 +1,10 @@
+```bash
+──╔╗──╔╗
+╔╗╠╬═╦╣╠╦╦╗
+║╚╣║║║║═╣║║ : Crawl >> Links || Discover >> Endopints >> Params || Scan >> JavaScript >> Secrets || Analyze >> Everything
+╚═╩╩╩═╩╩╬╗║
+────────╚═╝
+```
 ### About:
 Revamped Version of [**mux0x/cold.sh**](https://github.com/mux0x/cold.sh) ; A Fancy Wrapper around [**gau**](https://github.com/lc/gau), [**github-endpoints**](https://github.com/gwen001/github-search/blob/master/github-endpoints.py), [**gospider**](https://github.com/jaeles-project/gospider), [**hakrawler**](https://github.com/hakluke/hakrawler), [**JSA**](https://github.com/w9w/JSA), [**katana**](https://github.com/projectdiscovery/katana), [**subJS**](https://github.com/lc/subjs), [**waymore**](https://github.com/xnl-h4ck3r/waymore) & [**xnLinkFinder**](https://github.com/xnl-h4ck3r/xnLinkFinder) to find as much Links, Endpoints & Params as possible on a single `$URL`.
 

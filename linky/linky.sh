@@ -104,7 +104,7 @@ do
     fi
     # Create directory
     mkdir -p "$outputDir/tmp/"
-    echo "➼ $outputDir created successfully"
+    echo "${YELLOW}INFO${NC}: ➼ $outputDir created successfully"
     ;;
     -gh|--github_token)
     if [ -z "$2" ]; then
@@ -159,10 +159,10 @@ export deep=$deep
 export clean_tmp=$clean_tmp
 originalDir=$(pwd)
 #Recheck Values
-echo -e "${YELLOW}url${RESET}: ${BLUE}$url${RESET}"
-echo -e "${YELLOW}outputDir: $outputDir${RESET}"
-echo -e "${YELLOW}githubToken: $githubToken${RESET}"
-echo -e "${YELLOW}optionalHeaders: $optionalHeaders${RESET}"
+echo -e "${YELLOW}url: ${BLUE}$url${NC}"
+echo -e "${YELLOW}outputDir: $outputDir${NC}"
+echo -e "${YELLOW}githubToken: $githubToken${NC}"
+echo -e "${YELLOW}optionalHeaders: $optionalHeaders${NC}"
 if [ -n "$deep" ] && [ "$deep" -eq 1 ]; then
   echo -e "${YELLOW}Run with --depth 5 for all crawlers? : Yes $(echo -e "${GREEN}\u2713${RESET}")${RESET}"
 else
@@ -270,6 +270,7 @@ alt_scope_domain=$(fasttld extract $url | grep -E 'domain:|suffix:' | awk '{prin
 #Extract full domain name
 domain=$(echo "$url" | unfurl domains)
 #Set .scope 
+echo ""
 echo "Scope is set as: "
 echo $scope_domain | scopegen -in | anew $outputDir/.scope
 echo $alt_scope_domain | scopegen -in | anew $outputDir/.scope

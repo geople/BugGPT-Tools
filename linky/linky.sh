@@ -56,6 +56,7 @@ if [[ "$*" == *"-help"* ]] || [[ "$*" == *"--help"* ]] || [[ "$*" == *"help"* ]]
   echo -e "➼ Include ${BLUE}UrlScan API keys${NC} in ${BLUE}$HOME/Tools/waymore/config.yml${NC} to find more links"
   echo -e "➼ Include multiple ${GREEN}github_tokens${NC} in ${BLUE}$HOME/.config/.github_tokens${NC} to avoid ${RED}rate limits${NC}"
   echo -e "➼ ${RED}--scan-secrets${NC} produces ${YELLOW}massive files (Several ${RED}GB${NC}s). So TuffleHog is run by default. Best run with ${BLUE}--deep${NC}" 
+  echo -e "➼ ${YELLOW}Don't Worry${NC} if your ${RED}Terminal Hangs${NC} for a bit.. It's a feature not a bug"
   exit 0
 fi
 # Update. Github caches take several minutes to reflect globally  

@@ -405,12 +405,17 @@ clear
 echo -e "➼ Running Waymore on: ${GREEN}$url${NC}"
 mkdir -p $outputDir/waymore/waymore-responses
 cd $HOME/Tools/waymore && python3 $HOME/Tools/waymore/waymore.py --input $domain -xcc --output-urls $outputDir/waymore/waymore-urls.txt --output-responses $outputDir/waymore/waymore-responses --verbose --processes 5
+mkdir -p /tmp/waymore/
+cp -r $outputDir/waymore/waymore-responses /tmp/waymore/
 cat $outputDir/waymore/waymore-urls.txt | anew $outputDir/tmp/urls.txt
 #XnLinkfinder for Waymore
-cd $HOME/Tools/xnLinkFinder && python3 $HOME/Tools/xnLinkFinder/xnLinkFinder.py -i $outputDir/waymore/waymore-responses --origin --output $outputDir/waymore/waymore-linkfinder.txt --output-params $outputDir/waymore/waymore-params.txt
+cd $HOME/Tools/xnLinkFinder && python3 $HOME/Tools/xnLinkFinder/xnLinkFinder.py -i /tmp/waymore/ --origin --output $outputDir/waymore/waymore-linkfinder.txt --output-params $outputDir/waymore/waymore-params.txt
 cat $outputDir/waymore/waymore-linkfinder.txt | grep -aEo 'https?://[^ ]+' | sed 's/]$//' | anew $outputDir/tmp/urls.txt
 cat $outputDir/waymore/waymore-params.txt | anew $outputDir/parameters.txt
 cat $outputDir/waymore/waymore-linkfinder.txt | cut -d'[' -f1 |  scopeview -s $outputDir/.scope | anew $outputDir/endpoints.txt
+#Remove nosise
+rm -rf /tmp/waymore/
+sed -i '/^waymore\|^tmp$\|^EN$\|^w3c$\|^http[s]\?$\|^DTD$/I d' $outputDir/waymore/waymore-params.txt
 
 #Dedupe & Filter Scope
 sort -u $outputDir/tmp/urls.txt -o $outputDir/tmp/urls.txt

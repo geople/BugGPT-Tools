@@ -1,1 +1,1 @@
-Dumpyard for things! 
+- **➼** [**`Wordlists`**](https://github.com/Azathothas/BugGPT-Tools/tree/main/misc/wordlists) : Custom or Stolen `{git cloned}` Fuzziing Wordlists

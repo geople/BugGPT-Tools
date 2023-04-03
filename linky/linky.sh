@@ -291,13 +291,13 @@ for path in "${paths[@]}"; do
         chmod +x $HOME/Tools/JSA/automation.sh && chmod +x $HOME/Tools/JSA/automation/404_js_wayback.sh
         #xnl-h4ck3r/Urless
         cd $HOME/Tools && git clone https://github.com/xnl-h4ck3r/urless.git && cd $HOME/Tools/urless 
-        python3 $HOME/Tools/urless/setup.py install
+        sudo python3 $HOME/Tools/urless/setup.py install
         #xnl-h4ck3r/Waymore
         cd $HOME/Tools && git clone https://github.com/xnl-h4ck3r/waymore.git && cd $HOME/Tools/waymore  && pip3 install -r requirements.txt 
-        cd $HOME/Tools/waymore && python3 $HOME/Tools/waymore/setup.py install
+        cd $HOME/Tools/waymore && sudo python3 $HOME/Tools/waymore/setup.py install
         #xnl-h4ck3r/xnLinkFinder 
         cd $HOME/Tools && git clone https://github.com/xnl-h4ck3r/xnLinkFinder.git && cd $HOME/Tools/xnLinkFinder
-        python3 $HOME/Tools/xnLinkFinder/setup.py install        
+        sudo python3 $HOME/Tools/xnLinkFinder/setup.py install        
     fi
 done
 

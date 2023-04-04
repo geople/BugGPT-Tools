@@ -221,6 +221,15 @@ if ! command -v go &> /dev/null 2>&1; then
     echo "➼ golang is not installed. Installing..."
     cd /tmp && git clone https://github.com/udhos/update-golang  && cd /tmp/update-golang && sudo ./update-golang.sh
     source /etc/profile.d/golang_path.sh
+  else
+    GO_VERSION=$(go version | awk '{print $3}')
+  if [[ "$(printf '%s\n' "1.20.0" "$(echo "$GO_VERSION" | sed 's/go//')" | sort -V | head -n1)" != "1.20.0" ]]; then
+        echo "➼ golang version 1.20.0 or greater is not installed. Installing..."
+        cd /tmp && git clone https://github.com/udhos/update-golang  && cd /tmp/update-golang && sudo ./update-golang.sh
+        source /etc/profile.d/golang_path.sh
+  else
+        echo ""
+  fi
 fi
 if ! command -v npm &> /dev/null 2>&1; then
     echo "➼ npm is not installed. Installing..."

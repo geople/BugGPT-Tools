@@ -22,7 +22,7 @@ if [[ "$*" == *"-init"* ]] || [[ "$*" == *"--init"* ]] || [[ "$*" == *"init"* ]]
   echo -e "➼ ${GREEN}Initializing linky...${NC}"
   echo -e "➼ Please ${YELLOW}exit (ctrl + c)${NC} if you already did this" 
   echo "➼ Setting up...$(rm -rf /tmp/example.com 2>/dev/null)"
-  linky -u https://example5.com -o /tmp/example.com -gh ghp_xyz 
+  linky -u http://testhtml5.vulnweb.com -o /tmp/example.com -gh ghp_xyz 
   rm -rf /tmp/example.com 2>/dev/null
   echo ""
   echo -e "${GREEN}Initialized Successfully${NC}"

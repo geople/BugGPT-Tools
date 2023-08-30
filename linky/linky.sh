@@ -534,13 +534,13 @@ rm -rf $outputDir/tmp 2>/dev/null
 fi
 
 #Check For Update on Script end
-echo ""
-REMOTE_FILE=$(mktemp)
-curl -s -H "Cache-Control: no-cache" https://github.com/geople/BugGPT-Tools/raw/main/linky/linky.sh -o "$REMOTE_FILE"
-if ! diff --brief /usr/local/bin/linky "$REMOTE_FILE" >/dev/null 2>&1; then
-echo ""
-echo -e "➼ ${YELLOW}Update Found!${NC} ${BLUE}updating ..${NC} $(linky -up)" 
-  else
-  rm -f "$REMOTE_FILE" 2>/dev/null
-    exit 0
-fi
+#echo ""
+#REMOTE_FILE=$(mktemp)
+#curl -s -H "Cache-Control: no-cache" https://github.com/geople/BugGPT-Tools/raw/main/linky/linky.sh -o "$REMOTE_FILE"
+#if ! diff --brief /usr/local/bin/linky "$REMOTE_FILE" >/dev/null 2>&1; then
+#echo ""
+#echo -e "➼ ${YELLOW}Update Found!${NC} ${BLUE}updating ..${NC} $(linky -up)" 
+#  else
+#  rm -f "$REMOTE_FILE" 2>/dev/null
+#    exit 0
+#fi

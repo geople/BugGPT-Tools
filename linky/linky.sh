@@ -249,7 +249,7 @@ if ! command -v pipx &> /dev/null; then
    python3 -m pipx ensurepath
 fi
 #Health Check for binaries
-binaries=("anew" "arjun" "fasttld" "fff" "fget" "gau" "godeclutter" "gospider" "hakrawler" "js-beautify" "katana" "nuclei" "roboxtractor" "scopegen" "scopeview" "subjs" "trufflehog" "unfurl" "waybackurls" "yataf")
+binaries=("anew" "arjun" "fasttld" "fff" "fget" "gau" "godeclutter" "gospider" "hakrawler" "js-beautify" "katana" "nuclei" "roboxtractor" "scopegen" "scopeview" "subjs" "trufflehog" "unfurl" "waybackurls" "yataf" "zsh")
 for binary in "${binaries[@]}"; do
     if ! command -v "$binary" &> /dev/null; then
         echo "➼ Error: $binary not found"
@@ -273,6 +273,7 @@ for binary in "${binaries[@]}"; do
         go install -v github.com/lc/subjs@latest
         cd /tmp && git clone https://github.com/trufflesecurity/trufflehog.git ; cd /tmp/trufflehog && go install -v
         go install -v github.com/tomnomnom/unfurl@latest
+        apt install zsh
         go install -v github.com/tomnomnom/waybackurls@latest
         go install -v github.com/Damian89/yataf@master
     fi

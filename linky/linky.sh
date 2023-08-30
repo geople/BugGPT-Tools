@@ -277,7 +277,7 @@ for binary in "${binaries[@]}"; do
     fi
 done
 #Health Check for Tools
-paths=("$HOME/Tools/JSA/automation.sh" "$HOME/Tools/Arjun/arjun/db/large.txt" "$HOME/Tools/gf-secrets/gf-secrets.sh" "$HOME/Tools/github-search/github-endpoints.py" "$HOME/Tools/urless/urless.py" "$HOME/Tools/waymore/waymore.py" "$HOME/Tools/xnLinkFinder/xnLinkFinder.py")
+paths=("$HOME/Tools/JSA/automation.sh" "$HOME/Tools/Arjun/arjun/db/large.txt" "$HOME/Tools/gf-secrets/gf-secrets.sh" "$HOME/Tools/github-search/github-endpoints.py" "$HOME/Tools/urless/urless/urless.py" "$HOME/Tools/waymore/waymore.py" "$HOME/Tools/xnLinkFinder/xnLinkFinder.py")
 for path in "${paths[@]}"; do
     if [ ! -f "$path" ]; then
         echo "➼ Error: $path not found"
@@ -430,7 +430,7 @@ sed -i '/^waymore\|^tmp$\|^EN$\|^w3c$\|^http[s]\?$\|^DTD$/I d' $outputDir/waymor
 sort -u $outputDir/tmp/urls.txt -o $outputDir/tmp/urls.txt
 if [ -n "$clean_urls" ]; then 
   echo -e "➼ Removing Junk URLs (urless): ${GREEN}$url${NC}"
-  cd $HOME/Tools/urless && python3 $HOME/Tools/urless/urless.py --input $outputDir/tmp/urls.txt -o $outputDir/tmp/urless.txt
+  cd $HOME/Tools/urless && python3 $HOME/Tools/urless/urless/urless.py --input $outputDir/tmp/urls.txt -o $outputDir/tmp/urless.txt
   echo "➼ Decluttering URLs (godeclutter): $url" 
   cat $outputDir/tmp/urls.txt | godeclutter | anew $outputDir/tmp/decluttered-urls.txt
   #merge and filter scope
@@ -498,7 +498,7 @@ cat $outputDir/tmp/tmp-parameters_filtered.txt | grep -E '\b\w{10,}\b'| grep  '+
 comm -23 <(sort $outputDir/tmp/tmp-parameters_filtered.txt) $outputDir/tmp/ftmp-param.txt > $outputDir/tmp/ftmp-parameters_filtered.txt
 mv $outputDir/tmp/ftmp-parameters_filtered.txt $outputDir/parameters.txt && rm -rf $outputDir/tmp/ftmp*.txt $outputDir/tmp/tmp*.txt 
 #URLs with params
-cd $HOME/Tools/urless && python3 $HOME/Tools/urless/urless.py --input $outputDir/urls.txt -o $outputDir/tmp/param-urless.txt && cd -
+cd $HOME/Tools/urless && python3 $HOME/Tools/urless/urless/urless.py --input $outputDir/urls.txt -o $outputDir/tmp/param-urless.txt && cd -
 cat $outputDir/urls.txt | godeclutter | anew -q $outputDir/tmp/param-urless.txt   
 cat $outputDir/tmp/param-urless.txt | grep -E 'https?://\S+/\S+\.\w+(\?\S+)?' | grep -vE 'https?://\S+/\S+\.js(\?[^[:space:]]*)?$' | sort -u -o $outputDir/tmp/param-urls.txt
 #Arjun

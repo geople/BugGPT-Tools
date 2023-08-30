@@ -267,7 +267,7 @@ for binary in "${binaries[@]}"; do
         go install -v github.com/projectdiscovery/katana/cmd/katana@latest
         go install -v github.com/projectdiscovery/nuclei/v2/cmd/nuclei@latest && nuclei -update-templates
         go env -w GO111MODULE="auto" ; go get -u github.com/Josue87/roboxtractor
-        go install -v github.com/Azathothas/BugGPT-Tools/scopegen@main
+        go install -v https://github.com/geople/BugGPT-Tools/scopegen@main
         sudo wget https://github.com/geople/BugGPT-Tools/raw/main/scopeview/scopeview.sh -O /usr/local/bin/scopeview && sudo chmod +xwr /usr/local/bin/scopeview
         go install -v github.com/lc/subjs@latest
         cd /tmp && git clone https://github.com/trufflesecurity/trufflehog.git ; cd /tmp/trufflehog && go install -v
